@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Approval</title>
+</head>
+<body>
+
+<form>
+Enter your salary: <input type="text" name="salary" id="salary">
+    <br/>
+    <br/>
+Enter your credit score (between 300 - 850): <input type="text" name="credit" id="credit">
+    <br/>
+    <br/>
+<input type="submit" value="Apply for Loan">
+</form>
+
+<p></p>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+
+<script>
+
+    function init()
+    {
+        var config =
+            {
+                rules: myRules,
+                messages: myMessages,
+                submitHandler: calcLoan
+            };
+
+        $("form").validate(config);
+    }
+
+    $(document).ready(init);
+
+    var myRules =
+        {
+            salary:
+                {
+                    required: true,
+                    min: 0
+                },
+            height:
+                {
+                    required: true,
+                    range: [59 , 79]
+                }
+        };
+
+    var myMessages =
+        {
+            salary:
+                {
+                    required: "You should fill this in.",
+                    range : "Salary cannot be negative.",
+                },
+            height:
+                {
+                    required: "You should fill this in.",
+                    range : "You must enter a height between 59 and 79 inches."
+                }
+        };
+
+    function calcLoan ()
+    {
+        var approved = false;
+        var salary = $("#salary").val();
+        var height = $("#height").val();
+
+        salary = parseInt(salary);
+        height = parseInt(height);
+
+
+
+        if (salary < 40000)
+        {
+            $("p").append("and is considered in the Underweight Category.");
+        } else if (BMI < 25)
+        {
+            $("p").append("and is considered in the Normal weight Category.");
+        } else if (BMI < 30)
+        {
+            $("p").append("and is considered in the Overweight Category.");
+        } else
+        {
+            $("p").append("and is considered in the Obese Category.");
+        }
+    }
+
+
+    /*        $("p").append("Result: ");
+            $("p").html("Your BMI is " + BMI.toFixed(2) + "<br/>");*/
+
+
+</script>
+
+</html>
