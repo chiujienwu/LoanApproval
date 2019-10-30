@@ -7,11 +7,17 @@
 <body>
 
 <form>
+    <label>
     Enter your salary: <input type="text" name="salary" id="salary">
+    </label>
     <br/>
+    <label>
     Enter your credit score (between 300 - 850): <input type="text" name="credit" id="credit">
+    </label>
     <br/>
+    <label>
     Months at current job: <input type="text" name="months" id="months">
+    </label>
     <br/>
     <input type="submit" value="Apply for Loan">
 </form>
@@ -92,13 +98,12 @@
                 approved = false;
             }
 
-        $("p").html("Your loan is approved: " + approved + "<br/>");
-        if (approved == true)
+        if (approved === true)
         {
-            $("p").append("Congratuations!")
+            $("p").append("Congratuations!  You are approved.")
         } else
         {
-            $("p").append("We're sorry!")
+            $("p").append("We're sorry!  You are not approved")
         }
 
         return false;
