@@ -7,13 +7,13 @@
 <body>
 
 <form>
-Enter your salary: <input type="text" name="salary" id="salary">
+    Enter your salary: <input type="text" name="salary" id="salary">
     <br/>
+    Enter your credit score (between 300 - 850): <input type="text" name="credit" id="credit">
     <br/>
-Enter your credit score (between 300 - 850): <input type="text" name="credit" id="credit">
+    Months at current job: <input type="text" name="months" id="months">
     <br/>
-    <br/>
-<input type="submit" value="Apply for Loan">
+    <input type="submit" value="Apply for Loan">
 </form>
 
 <p></p>
@@ -24,6 +24,86 @@ Enter your credit score (between 300 - 850): <input type="text" name="credit" id
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
 
 <script>
+
+    var myRules =
+        {
+            salary:
+                {
+                    required: true,
+                    min: 0
+                },
+            credit:
+                {
+                    required: true,
+                    range: [300 , 850]
+                },
+            months:
+                {
+                    required: true,
+                    min: 0
+                }
+        };
+
+    var myMessages =
+        {
+            salary:
+                {
+                    required: "You should fill this in.",
+                    range : "Salary cannot be negative.",
+                },
+            credit:
+                {
+                    required: "You should fill this in.",
+                    range : "You must enter a height between 300 and 850."
+                },
+            months:
+                {
+                    required: "You should fill this in.",
+                    range : "Enter number of months (0 for unemployed or new job)."
+                }
+        };
+
+    function calcLoan ()
+    {
+        var approved = false;
+        var salary = $("#salary").val();
+        var credit = $("#credit").val();
+        var months = $("#months").val();
+
+        salary = parseInt(salary);
+        credit = parseInt(credit);
+        months = parseInt(months);
+
+        if (salary < 40000)
+        {
+            if (credit >= 600 && months > 12)
+            {
+                approved = true;
+            } else
+            {
+                approved = false;
+            }
+        } else
+            if (credit >= 600 || months > 12)
+            {
+                approved = true;
+            } else
+            {
+                approved = false;
+            }
+
+        $("p").html("Your loan is approved: " + approved + "<br/>");
+        if (approved == true)
+        {
+            $("p").append("Congratuations!")
+        } else
+        {
+            $("p").append("We're sorry!")
+        }
+
+        return false;
+
+    }
 
     function init()
     {
@@ -38,65 +118,6 @@ Enter your credit score (between 300 - 850): <input type="text" name="credit" id
     }
 
     $(document).ready(init);
-
-    var myRules =
-        {
-            salary:
-                {
-                    required: true,
-                    min: 0
-                },
-            height:
-                {
-                    required: true,
-                    range: [59 , 79]
-                }
-        };
-
-    var myMessages =
-        {
-            salary:
-                {
-                    required: "You should fill this in.",
-                    range : "Salary cannot be negative.",
-                },
-            height:
-                {
-                    required: "You should fill this in.",
-                    range : "You must enter a height between 59 and 79 inches."
-                }
-        };
-
-    function calcLoan ()
-    {
-        var approved = false;
-        var salary = $("#salary").val();
-        var height = $("#height").val();
-
-        salary = parseInt(salary);
-        height = parseInt(height);
-
-
-
-        if (salary < 40000)
-        {
-            $("p").append("and is considered in the Underweight Category.");
-        } else if (BMI < 25)
-        {
-            $("p").append("and is considered in the Normal weight Category.");
-        } else if (BMI < 30)
-        {
-            $("p").append("and is considered in the Overweight Category.");
-        } else
-        {
-            $("p").append("and is considered in the Obese Category.");
-        }
-    }
-
-
-    /*        $("p").append("Result: ");
-            $("p").html("Your BMI is " + BMI.toFixed(2) + "<br/>");*/
-
 
 </script>
 
